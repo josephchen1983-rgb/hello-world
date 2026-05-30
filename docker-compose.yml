@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # EMQX MQTT 服务器
+  emqx:
+    image: emqx:latest
+    container_name: emqx
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "8081:8081"
+      - "18083:18083"
+    environment:
+      EMQX_NAME: emqx
+      EMQX_HOST: 127.0.0.1
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+    networks:
+      - mqtt-network
+
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: mqtt_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root@123
+      MYSQL_DATABASE: mqtt_web
+      MYSQL_USER: mqtt_user
+      MYSQL_PASSWORD: mqtt@123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mqtt-network
+
+  # InfluxDB 时序数据库
+  influxdb:
+    image: influxdb:2.7
+    container_name: mqtt_influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      INFLUXDB_DB: mqtt_data
+      INFLUXDB_ADMIN_USER: admin
+      INFLUXDB_ADMIN_PASSWORD: admin@123
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    networks:
+      - mqtt-network
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    container_name: mqtt_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - mqtt-network
+
+volumes:
+  emqx_data:
+  emqx_log:
+  mysql_data:
+  influxdb_data:
+  redis_data:
+
+networks:
+  mqtt-network:
+    driver: bridge

@@ -1,0 +1,46 @@
+# Web 框架
+Flask==2.3.3
+Flask-CORS==4.0.0
+Flask-RESTful==0.3.10
+
+# 数据库
+PyMySQL==1.1.0
+SQLAlchemy==2.0.20
+influxdb-client==1.36.0
+
+# MQTT
+paho-mqtt==1.6.1
+
+# WebSocket
+Flask-SocketIO==5.3.4
+python-socketio==5.9.0
+python-engineio==4.7.1
+
+# 认证和安全
+PyJWT==2.8.0
+bcrypt==4.0.1
+cryptography==41.0.4
+
+# 数据处理
+pandas==2.0.3
+numpy==1.24.3
+
+# 环境变量
+python-dotenv==1.0.0
+
+# 工具
+requests==2.31.0
+click==8.1.7
+
+# 异步任务
+Celery==5.3.1
+redis==5.0.0
+
+# 日志
+python-json-logger==2.0.7
+
+# 开发工具
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.9.1
+flake8==6.0.0
